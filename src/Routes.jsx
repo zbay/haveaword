@@ -10,69 +10,19 @@ import { createStore } from 'redux';
 var Store = require("./store");
 
 var Main = require("./components/Main");
-var About = require("./components/StatelessContent/About");
-var Question = require("./components/Questions/StandaloneQuestion");
-var PostingsListContainer = require("./components/Questions/PostingsListContainer");
+var Home = require("./components/StatelessContent/Home");
+var ChatRoom = require("./components/Chat/ChatRoom");
 var BadLink = require("./components/StatelessContent/BadLink");
-var Login = require("./components/Login/LoginForm");
-var Signup = require("./components/Login/SignupForm");
-var Logout = require("./components/Login/Logout");
-var SuccessfulReset = require('./components/StatelessContent/SuccessfulReset');
-var ResetPassword = require('./components/Login/ChangePassword');
-var PasswordRequest = require('./components/Login/RequestPassword');
-var ResetPasswordForgot = require('./components/Login/ChangePasswordForgot');
 
-var AllWrapper = React.createClass({
+var ChatWrapper = React.createClass({
     render: function(){
-        return (<PostingsListContainer criteria="all" page={this.props.routeParams.page ? (this.props.routeParams.page): "1"} category={null} searchQuery={null}/>);
+        return (<ChatRoom roomID={this.props.routeParams.id} />);
     }
 });
-
-var CategoryWrapper = React.createClass({
+var ChatNewWrapper = React.createClass({
     render: function(){
-        return (<PostingsListContainer criteria="category" page={this.props.routeParams.page ? (this.props.routeParams.page): "1"} category={this.props.routeParams.category} search={null}/>);
-    }
-});
-
-var SearchWrapper = React.createClass({
-    render: function(){
-        return (<PostingsListContainer criteria="search" page={this.props.routeParams.page ? (this.props.routeParams.page): "1"} search={this.props.routeParams.search} category={null}/>);
-    }
-});
-
-var FavoriteWrapper = React.createClass({
-    render: function(){
-        return(<PostingsListContainer criteria="favorites" page={"1"} search={null} category={null}/>);
-    }
-});
-
-var MyPostWrapper = React.createClass({
-    render: function(){
-        return(<PostingsListContainer criteria="myPosts" page={"1"} search={null} category={null}/>);
-    }
-});
-
-var QuestionWrapper = React.createClass({
-    render: function(){
-        return (<Question questionID={this.props.routeParams.id} page={this.props.routeParams.page || 1}/>);
-    }
-});
-
-var LoginAuthWrapper = React.createClass({
-    render: function(){
-        return(<Login redirectMessage="Account successfully created!"/>);
-    }
-});
-
-var LoginResetWrapper = React.createClass({
-    render: function(){
-        return (<Login redirectMessage="Password successfully changed! You can now log in."/>);
-    }
-});
-
-var ResetPasswordForgotWrapper = React.createClass({
-    render: function(){
-        return (<ResetPasswordForgot resetID={this.props.routeParams.resetID}/>);
+        return (<ChatRoom roomID={this.props.routeParams.id} topMessage="Welcome to your new chat room! Make sure to save the link, if you plan on using
+        this one again before it expires."/>);
     }
 });
 
@@ -80,27 +30,9 @@ module.exports = (
   <Provider store={Store}>
   <Router history={BrowserHistory}>
     <Route path="/" component={Main}>
-      <IndexRoute component={About} />
-      <Route path="all/:page" component={AllWrapper}/>
-      <Route path="all" component={AllWrapper}/>
-      <Route path="login" component={Login}/>
-      <Route path="login/signedUp" component={LoginAuthWrapper}/>
-      <Route path="login/reset" component={LoginResetWrapper}/>
-      <Route path="reset" component={SuccessfulReset}/>
-      <Route path="logout" component={Logout}/>
-      <Route path="signup" component={Signup}/>
-      <Route path="change_password" component={ResetPassword}/>
-      <Route path="password_request" component={PasswordRequest}/>
-      <Route path="change_password_forgot/:resetID" component={ResetPasswordForgotWrapper}/>
-      <Route path="category/:category/:page" component={CategoryWrapper} />
-      <Route path="category/:category" component={CategoryWrapper}/>
-      <Route path="search/:search/:page" component={SearchWrapper} />
-      <Route path="search/:search" component={SearchWrapper} />
-      <Route path="myPosts/:page" component={MyPostWrapper} />
-      <Route path="myPosts" component={MyPostWrapper} />
-      <Route path="question/:id" component={QuestionWrapper}/>
-      <Route path="question/:id/:page" component={QuestionWrapper}/>
-      <Route path="favorites" component={FavoriteWrapper}/>
+      <IndexRoute component={Home} />
+      <Route path="chat/:id" component={ChatWrapper}/>
+      <Route path="chat/new/:id" component={ChatNewWrapper} />
       <Route path="*" status={404} component={BadLink}/>
     </Route>
   </Router>

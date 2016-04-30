@@ -2,7 +2,6 @@ var React = require('react');
 var axios = require('axios');
 var Jumbotron = require("./StatelessUI/Jumbotron");
 var Footer = require("./StatelessUI/Footer");
-var ActionBar = require("./Navigation/ActionBar");
 var ReactRedux = require('react-redux');
 var actions = require("../actions");
 var localStorage = localStorage || window.localStorage;
