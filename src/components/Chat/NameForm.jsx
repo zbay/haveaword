@@ -1,8 +1,8 @@
 var React = require('react');
 
-var NewMessageForm = React.createClass({
+var NameForm = React.createClass({
     getInitialState: function(){
-      return {"text": ""}  
+      return {"name": "anonymous"}  
     },
     componentWillMount: function(){
         this.checkPrivate();
@@ -10,15 +10,19 @@ var NewMessageForm = React.createClass({
     render: function(){
         let that = this;
         return (<div>
-        <label>New message: </label>
-        <input name="message" value={that.state.name} onChange={that.onChange}/>
-        <button onClick={that.sendMessage} >Post</button>
+        <label>Name to use: </label>
+        <input name="name" value={that.state.name} onChange={that.onChange}/>
+        <button onClick={that.sendName} >Submit</button>
         </div>);
     },
-    sendMessage: function(){
+    postMessage: function(text){
+        let that = this;
+        
+    },
+    sendName: function(){
         let that = this;
         if(that.state.name.length > 0){
-            that.props.postMessage(that.state.name);   
+            that.props.setName(that.state.name);   
         }
     },
     onChange: function(e){
@@ -28,4 +32,4 @@ var NewMessageForm = React.createClass({
     }
 });
 
-module.exports = NewMessageForm;
+module.exports = NameForm;

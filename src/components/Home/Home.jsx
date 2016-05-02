@@ -3,7 +3,7 @@ var ReactRouter = require('react-router');
 var BrowserHistory = require('react-router/lib/browserHistory');
 var Link = ReactRouter.Link;
 
-var About = React.createClass({
+var Home = React.createClass({
     render: function(){
         return (<div>
         <NewRoomForm createdRoom={this.redirect}/>
@@ -13,3 +13,5 @@ var About = React.createClass({
         BrowserHistory.push("/chat/" + roomID);
     }
 });
+
+module.exports = Home;
