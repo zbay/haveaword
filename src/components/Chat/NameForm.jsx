@@ -4,9 +4,6 @@ var NameForm = React.createClass({
     getInitialState: function(){
       return {"name": "anonymous"}  
     },
-    componentWillMount: function(){
-        this.checkPrivate();
-    },
     render: function(){
         let that = this;
         return (<div>

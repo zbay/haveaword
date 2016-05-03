@@ -1,6 +1,5 @@
 //http://stackoverflow.com/questions/6721410/what-is-the-proper-way-to-manage-multiple-chat-rooms-with-socket-io
 
-var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
@@ -11,8 +10,8 @@ var db = mongoose.connection;
 var mongo = require('mongodb');
 
 var dotenv = require('dotenv').load();
-//mongoose.connect('mongodb://localhost:27017/opine', function (err, db)
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/haveaword', function (err, db)
+mongoose.connect('mongodb://localhost:27017/haveaword', function (err, db)
+//mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/haveaword', function (err, db)
 {
  if (err) {
       throw new Error('Database failed to connect!');
@@ -33,5 +32,14 @@ routes(app);
 
 console.log("Listening on Port 8080");
 var server = app.listen(process.env.PORT || 8080);
+
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 }
 });

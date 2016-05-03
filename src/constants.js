@@ -1,4 +1,4 @@
-module.exports = {
+/*module.exports = {
     // ACTION TYPES
     LOGIN: "LOGIN",
     LOGOUT: "LOGOUT",
@@ -8,4 +8,4 @@ module.exports = {
     // STATUSES
     LOGGEDIN: "loggedIn",
     USER_ID: "userID",
-};
+};*/

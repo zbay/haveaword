@@ -1,17 +1,32 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 var Room = require(process.cwd() + "/dbmodels/room.js"); Room = mongoose.model("Room");
 var sanitizeBody = require("./helpers/sanitizeBody");
 
 module.exports = function(app){
-    app.post("/checkPrivate", function(req, res){
+    app.post("/checkPrivate", sanitizeBody, function(req, res){
         Room.findOne({"name": req.body.roomID}, function(err, doc){
-            console.log(doc);
-            if(doc.password){
+            if(doc && doc.password && doc.password.length){
                 res.json({"private": true});
             }
             else{
             res.json({"private": false});
             }
         })
+    });
+    app.post("/login", sanitizeBody, function(req, res){
+        Room.findOne({"name": req.body.roomID}, function(err, doc){
+            if(err || !doc){
+                res.json({"error": "This room is unavailable or has been deleted."});
+            }
+            else{
+                if(bcrypt.compareSync(req.body.password, doc.password)){
+                    res.json({"success": "Correct password! The room should display momentarily."});
+                }
+                else{
+                    res.json({"error": "Wrong password! Please try again."});
+                }
+            }
+        });
     });
 }

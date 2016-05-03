@@ -17,17 +17,20 @@ var ChatRoomWrapper = React.createClass({
         let that = this;
         let canView = that.state.canView;
         return (<div>
-        {canView ? <ChatRoom roomID={that.props.roomID}/> : <PasswordForm roomID={that.props.roomID}/>}
-        <NewRoomForm createdRoom={this.redirect}/>
+        {canView ? <ChatRoom roomID={that.props.roomID}/> : <PasswordForm roomID={that.props.roomID} setVisible={that.setVisible}/>}
         </div>);
     },
     checkPrivate: function(){
         let that = this;
         axios.post("/checkPrivate").then(function(response){
+            console.log(response.data);
             if(!response.data.private){
-                that.setState({"canView": true});
+                that.setVisible();
             }
         });
+    },
+    setVisible: function(){
+       this.setState({"canView": true});
     }
 });
 

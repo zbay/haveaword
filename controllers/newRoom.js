@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 var Room = require(process.cwd() + "/dbmodels/room.js"); Room = mongoose.model("Room");
 var sanitizeBody = require("./helpers/sanitizeBody");
-let dayMilliseconds = (24*60*60*1000);
-let weekMilliseconds = dayMilliseconds * 7;
-let monthMilliseconds = weekMilliseconds * 31;
+var dayMilliseconds = (24*60*60*1000);
+var weekMilliseconds = dayMilliseconds * 7;
+var monthMilliseconds = weekMilliseconds * 31;
 
 module.exports = function(app) {
     app.post("/newRoom", sanitizeBody, function(req, res){
         if(req.body.roomName && req.body.duration){
-            let urlSafeName = encodeURI(req.body.roomName);
-            let expires = null;
+            var urlSafeName = encodeURI(req.body.roomName);
+            var expires = null;
             switch(req.body.duration){
                 case "day":
                     expires = new Date(Date.now() + dayMilliseconds);
@@ -23,19 +24,30 @@ module.exports = function(app) {
                 case "indefinite":
                     break;
             }
-            if(Room.find({"name": urlSafeName}).count() === 0){
-                let newRoom = new Room({"name": urlSafeName, expiration: expires});
-                newRoom.save(function(err, msg){
-                    if(msg && !err){
-                        res.json({"returnID": urlSafeName});
+            if(Room.count({"name": urlSafeName}, function(count){
+                console.log("count: " + count);
+                if(count == 0 || count == -1 || count == null){
+                    var newRoom;
+                    if(req.body.password){
+                    newRoom = new Room({"name": urlSafeName, expiration: expires, 
+                    password: bcrypt.hashSync(req.body.password.trim().substr(0, 200), 10)});   
                     }
                     else{
-                        res.json({"error": err});
+                        newRoom = new Room({"name": urlSafeName, expiration: expires});
                     }
-                });
-            }
+                    newRoom.save(function(err, msg){
+                        if(msg && !err){
+                            res.json({"returnID": urlSafeName});
+                        }
+                        else{
+                            res.json({"error": err});
+                        }
+                    });
+                }
             else{
                 res.json({"error": "That room name is currently taken! Please try another name."});
+            }
+            })){
             }
         }
         else{
