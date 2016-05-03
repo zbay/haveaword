@@ -12,7 +12,7 @@ var PasswordForm = React.createClass({
         <FormAlert errorMessage={this.state.errorMessage}/>
         <label>Type password for {that.props.roomID}: </label>
         <input name="password" type="password" value={that.state.name} onChange={that.onChange}/>
-        <button onClick={that.attemptLogin} >Post</button>
+        <button onClick={that.attemptLogin}>Post</button>
         </div>);
     },
     attemptLogin: function(){
@@ -20,7 +20,7 @@ var PasswordForm = React.createClass({
         if(that.state.password && that.state.password.length > 0){
         axios.post("/login", {roomID: that.props.roomID, password: that.state.password}).then(function(response){
             if(response.data.success){
-                that.setVisible();
+                that.props.setVisible();
             }
             else{
                 that.setState({"errorMessage": response.data.error});

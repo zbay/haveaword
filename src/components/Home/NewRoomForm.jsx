@@ -1,3 +1,5 @@
+//add password field, toggled by the radio selection. Password sent with creation request
+
 var React = require('react');
 var ReactRouter = require('react-router');
 var BrowserHistory = require('react-router/lib/browserHistory');
@@ -9,7 +11,9 @@ var NewRoomForm = React.createClass({
     getInitialState: function(){
       return {
           roomName: "",
-          errorMessage: null
+          errorMessage: null,
+          passwordFieldVisible: false,
+          password: ""
       };  
     },
     render: function(){
@@ -17,8 +21,11 @@ var NewRoomForm = React.createClass({
             <FormAlert errorMessage={this.state.errorMessage}/>
             <label>Make a new chatroom: </label> <input placeholder="A unique name" name="roomName" value={this.state.roomName} onChange={this.onChange}/>
             <br /><br />
-            <label>Password protected?</label> <input type="radio" name="passwordProtected" value="true"/> Yes
-            <input type="radio" name="passwordProtected" value="false" defaultChecked/> No
+            <label>Password protected?</label> <input type="radio" name="passwordProtected" value="true" onClick={this.togglePasswordField}/> Yes
+            <input type="radio" name="passwordProtected" value="false" onClick={this.togglePasswordField} defaultChecked/> No
+            <br />
+            {this.state.passwordFieldVisible ? 
+            (<div><label>Password: </label><input name="password" type="password" value={this.state.password} onChange={this.onChange}/></div>): (<span></span>)}
             <br /><br />
             <label>When should this room be deleted?</label>
             <select name="duration" id="durationSelector">
@@ -35,7 +42,8 @@ var NewRoomForm = React.createClass({
         e.preventDefault();
         var radios = document.getElementsByName('passwordProtected');
         let that = this;
-        axios.post("/newRoom", {roomName: that.state.roomName.trim().substr(0, 150), passwordProtected: radios[0].checked, 
+        if(radios[0].checked){
+             axios.post("/newRoom", {roomName: that.state.roomName.trim().substr(0, 150), password: that.state.password, 
             duration: document.getElementById("durationSelector").value
         }).then(function(response){
             if(response.data.error){
@@ -44,12 +52,29 @@ var NewRoomForm = React.createClass({
             else{
                 BrowserHistory.push("/chat/new/" + response.data.returnID);
             }
+        });       
+        }
+        else{
+            axios.post("/newRoom", {roomName: that.state.roomName.trim().substr(0, 150), duration: document.getElementById("durationSelector").value
+        }).then(function(response){
+            if(response.data.error){
+                that.setState({errorMessage: response.data.error});
+            }
+            else{
+                BrowserHistory.push("/chat/new/" + response.data.returnID);
+            }
         });
+        }
     },
     onChange: function(e){
         var state = {};
         state[e.target.name] =  e.target.value;
         this.setState(state);
+    },
+    togglePasswordField: function(){
+        console.log("toggling pw");
+        let that = this;
+        that.setState({passwordFieldVisible: !that.state.passwordFieldVisible});
     }
 });
 
