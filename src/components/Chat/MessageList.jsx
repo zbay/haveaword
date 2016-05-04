@@ -10,9 +10,10 @@ var MessageList = React.createClass({
     },
     renderMessages: function(){
         let that = this;
+        console.log(that.props.messages);
          return (that.props.messages.map(function(message, index){
-            return (<Message key={index} text={message.text} author={message.author} timePosted={message.timePosted}/>)
-        }))        
+            return (<Message key={index} text={message.text} author={message.author} timePosted={message.timePosted}/>);
+        }));        
     }
 });
 

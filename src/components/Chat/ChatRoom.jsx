@@ -4,6 +4,14 @@ var MessageList = require('./MessageList');
 var NewMessageForm = require('./NewMessageForm');
 var NameForm = require('./NameForm');
 var FormAlert = require("../Alerts/FormAlert");
+var io = require("socket.io-client");
+var socket = io();
+/*
+        socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+  });
+*/
 
 var Link = ReactRouter.Link;
 var axios = require("axios");
@@ -15,8 +23,19 @@ var ChatRoom = React.createClass({
     componentWillMount: function(){
       this.getMessages();  
     },
+    componentDidMount: function(){
+        let that = this;
+          socket.on("newMessage", function(message){
+          var currentMessages = that.state.messages;
+          currentMessages.push(message);
+          console.log("message: " + JSON.stringify(message));
+          console.log("currentMessages: " + JSON.stringify(currentMessages));
+          that.setState({messages: currentMessages});
+      });  
+    },
     render: function(){
         let that = this;
+        console.log(that.state.messages);
         return (<div>
         <h2>Chat Room</h2>
         <FormAlert errorMessage={that.state.errorMessage}/>
@@ -27,14 +46,14 @@ var ChatRoom = React.createClass({
     },
     postMessage: function(text){
         let that = this;
-        console.log("attempting to post message...");
         axios.post("/postMessage", {roomID: that.props.roomID, text: text, author: that.state.name}).then(function(response){
             if(response.data.error){
                 that.setState({errorMessage: response.data.error});
             }
             else{
-                // broadcast event
-                
+                // configure postMessage to send the proper data, then listen for newMessages elsewhere in this file
+                console.log(response.data.message);
+                socket.emit("newMessage", response.data.message);
             }
         });
     },

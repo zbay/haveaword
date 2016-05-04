@@ -25,7 +25,6 @@ module.exports = function(app) {
                     break;
             }
             if(Room.count({"name": urlSafeName}, function(count){
-                console.log("count: " + count);
                 if(count == 0 || count == -1 || count == null){
                     var newRoom;
                     if(req.body.password){

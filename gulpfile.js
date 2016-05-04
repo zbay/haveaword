@@ -33,11 +33,6 @@ gulp.src('src/scss/*.scss')
   };
   
   function serve(){
-   /* console.log("serving");
-  exec('node server.js', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-  });*/
   exec('mongod --smallfiles', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);

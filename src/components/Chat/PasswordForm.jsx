@@ -12,7 +12,7 @@ var PasswordForm = React.createClass({
         <FormAlert errorMessage={this.state.errorMessage}/>
         <label>Type password for {that.props.roomID}: </label>
         <input name="password" type="password" value={that.state.name} onChange={that.onChange}/>
-        <button onClick={that.attemptLogin}>Post</button>
+        <button onClick={that.attemptLogin}>Sign In</button>
         </div>);
     },
     attemptLogin: function(){

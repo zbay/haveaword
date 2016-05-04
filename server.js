@@ -8,6 +8,7 @@ var routes = require('./controllers');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 var mongo = require('mongodb');
+var sockets = [];
 
 var dotenv = require('dotenv').load();
 mongoose.connect('mongodb://localhost:27017/haveaword', function (err, db)
@@ -36,9 +37,13 @@ var server = app.listen(process.env.PORT || 8080);
 var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  sockets.push(socket);
+  socket.on('newMessage', function (message) {
+    console.log("received new message");
+    for(var i = 0; i < sockets.length; i++){
+      var j = i;
+      sockets[i].emit("newMessage", message);
+    }
   });
 });
 }
