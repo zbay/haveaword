@@ -37,13 +37,12 @@ var server = app.listen(process.env.PORT || 8080);
 var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
-  sockets.push(socket);
-  socket.on('newMessage', function (message) {
-    console.log("received new message");
-    for(var i = 0; i < sockets.length; i++){
-      var j = i;
-      sockets[i].emit("newMessage", message);
-    }
+    socket.on('room', function(room) {
+        socket.join(room);
+    });
+  socket.on('newMessage', function (message, room) {
+    console.log("emitting to: " + room);
+    io.to(room).emit("newMessage", message);
   });
 });
 }

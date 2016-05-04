@@ -23,10 +23,9 @@ var NewRoomForm = React.createClass({
             <br /><br />
             <label>Password protected?</label> <input type="radio" name="passwordProtected" value="true" onClick={this.togglePasswordField}/> Yes
             <input type="radio" name="passwordProtected" value="false" onClick={this.togglePasswordField} defaultChecked/> No
-            <br />
-            {this.state.passwordFieldVisible ? 
-            (<div><label>Password: </label><input name="password" type="password" value={this.state.password} onChange={this.onChange}/></div>): (<span></span>)}
             <br /><br />
+            {this.state.passwordFieldVisible ? 
+            (<div><label>Password: </label><input name="password" type="password" value={this.state.password} onChange={this.onChange}/><br /><br /></div>): (<span></span>)}
             <label>When should this room be deleted?</label>
             <select name="duration" id="durationSelector">
                 <option value="day" defaultValue>Tomorrow</option>
@@ -74,7 +73,7 @@ var NewRoomForm = React.createClass({
     togglePasswordField: function(){
         console.log("toggling pw");
         let that = this;
-        that.setState({passwordFieldVisible: !that.state.passwordFieldVisible});
+        that.setState({passwordFieldVisible: document.getElementsByName('passwordProtected')[0].checked});
     }
 });
 

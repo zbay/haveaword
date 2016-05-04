@@ -6,12 +6,6 @@ var NameForm = require('./NameForm');
 var FormAlert = require("../Alerts/FormAlert");
 var io = require("socket.io-client");
 var socket = io();
-/*
-        socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
-  });
-*/
 
 var Link = ReactRouter.Link;
 var axios = require("axios");
@@ -25,6 +19,7 @@ var ChatRoom = React.createClass({
     },
     componentDidMount: function(){
         let that = this;
+          socket.emit("room", that.props.roomID);
           socket.on("newMessage", function(message){
           var currentMessages = that.state.messages;
           currentMessages.push(message);
@@ -53,7 +48,7 @@ var ChatRoom = React.createClass({
             else{
                 // configure postMessage to send the proper data, then listen for newMessages elsewhere in this file
                 console.log(response.data.message);
-                socket.emit("newMessage", response.data.message);
+                socket.emit("newMessage", response.data.message, that.props.roomID);
             }
         });
     },
