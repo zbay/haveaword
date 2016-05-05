@@ -41,7 +41,6 @@ io.on('connection', function (socket) {
         socket.join(room);
     });
   socket.on('newMessage', function (message, room) {
-    console.log("emitting to: " + room);
     io.to(room).emit("newMessage", message);
   });
 });

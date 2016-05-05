@@ -6,37 +6,41 @@ var NameForm = require('./NameForm');
 var FormAlert = require("../Alerts/FormAlert");
 var io = require("socket.io-client");
 var socket = io();
+var moment = require('moment');
 
 var Link = ReactRouter.Link;
 var axios = require("axios");
 
 var ChatRoom = React.createClass({
     getInitialState: function(){
-      return {"name": "anonymous", "errorMessage": null, "messages": []}  
+      return {"name": "anonymous", "errorMessage": null, "messages": [], "expiration": Date.now()}  
     },
     componentWillMount: function(){
-      this.getMessages();  
+      this.getRoomData();  
     },
     componentDidMount: function(){
         let that = this;
           socket.emit("room", that.props.roomID);
           socket.on("newMessage", function(message){
-          var currentMessages = that.state.messages;
-          currentMessages.push(message);
-          console.log("message: " + JSON.stringify(message));
-          console.log("currentMessages: " + JSON.stringify(currentMessages));
-          that.setState({messages: currentMessages});
+            var currentMessages = that.state.messages;
+            currentMessages.push(message);
+            that.setState({messages: currentMessages});
       });  
     },
     render: function(){
         let that = this;
-        console.log(that.state.messages);
-        return (<div>
-        <h2>Chat Room</h2>
-        <FormAlert errorMessage={that.state.errorMessage}/>
-        <NameForm setName={that.setName}/>
+        var expirationDate = moment(that.state.expiration).format('MMMM Do');
+        return (<div id="chatRoom">
+        <h3>Chat Room: {that.props.roomID}</h3>
+        <h4>Expires: {expirationDate != "Invalid date" ? expirationDate : "never"}</h4>
+        <FormAlert errorMessage={that.state.errorMessage} successMessage={that.props.successMessage}/>
+        <br />
         <MessageList roomID={that.state.roomID} messages={that.state.messages}/>
+        <br />
+        <NameForm setName={that.setName}/>
+        <br />
         <NewMessageForm postMessage={that.postMessage}/>
+        <br />
         </div>);
     },
     postMessage: function(text){
@@ -46,8 +50,6 @@ var ChatRoom = React.createClass({
                 that.setState({errorMessage: response.data.error});
             }
             else{
-                // configure postMessage to send the proper data, then listen for newMessages elsewhere in this file
-                console.log(response.data.message);
                 socket.emit("newMessage", response.data.message, that.props.roomID);
             }
         });
@@ -55,11 +57,11 @@ var ChatRoom = React.createClass({
     setName: function(name){
         this.setState({"name": name});
     },
-    getMessages: function(){
+    getRoomData: function(){
         let that = this;
-        axios.post("/getMessages", {roomID: that.props.roomID}).then(function(response){
+        axios.post("/getRoomData", {roomID: that.props.roomID}).then(function(response){
             if(response.data.messages){
-                that.setState({"messages": response.data.messages});
+                that.setState({"messages": response.data.messages, "expiration": response.data.expiration});
             }
             else{
                 that.setState({"errorMessage": response.data.error});

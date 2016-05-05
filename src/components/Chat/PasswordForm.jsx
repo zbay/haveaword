@@ -8,11 +8,18 @@ var PasswordForm = React.createClass({
     },
     render: function(){
         let that = this;
+        // http://simpleicon.com/wp-content/uploads/lock-2.png
         return (<div id="passwordForm">
+        <img src="../img/lock.png" width="200"/>
+        <br />
         <FormAlert errorMessage={this.state.errorMessage}/>
-        <label>Type password for {that.props.roomID}: </label>
+        <br />
+        <label>Type password for "{that.props.roomID}": </label>
+        <br />
         <input name="password" type="password" value={that.state.name} onChange={that.onChange}/>
+        <br /><br />
         <button onClick={that.attemptLogin}>Sign In</button>
+        <br /><br />
         </div>);
     },
     attemptLogin: function(){

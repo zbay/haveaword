@@ -17,16 +17,26 @@ var NewRoomForm = React.createClass({
       };  
     },
     render: function(){
-        return (<form onSubmit={this.makeRoom}>
+        return (<form onSubmit={this.makeRoom} id="newRoomForm">
             <FormAlert errorMessage={this.state.errorMessage}/>
-            <label>Make a new chatroom: </label> <input placeholder="A unique name" name="roomName" value={this.state.roomName} onChange={this.onChange}/>
+            <br />
+            <label>Make a new chatroom: </label> 
+            <br />
+            <input placeholder="A unique name" name="roomName" value={this.state.roomName} onChange={this.onChange}/>
             <br /><br />
-            <label>Password protected?</label> <input type="radio" name="passwordProtected" value="true" onClick={this.togglePasswordField}/> Yes
+            <label>Password protected?</label>
+            <br />
+            <input type="radio" name="passwordProtected" value="true" onClick={this.togglePasswordField}/> Yes
+            &nbsp;
             <input type="radio" name="passwordProtected" value="false" onClick={this.togglePasswordField} defaultChecked/> No
             <br /><br />
             {this.state.passwordFieldVisible ? 
-            (<div><label>Password: </label><input name="password" type="password" value={this.state.password} onChange={this.onChange}/><br /><br /></div>): (<span></span>)}
+            (<div><label>Password:&nbsp;</label>
+            <br />
+            <input name="password" type="password" value={this.state.password} 
+            onChange={this.onChange}/><br /><br /></div>): (<span></span>)}
             <label>When should this room be deleted?</label>
+            <br />
             <select name="duration" id="durationSelector">
                 <option value="day" defaultValue>Tomorrow</option>
                 <option value="week">In a week</option>
@@ -49,7 +59,7 @@ var NewRoomForm = React.createClass({
                 that.setState({errorMessage: response.data.error});
             }
             else{
-                BrowserHistory.push("/chat/new/" + response.data.returnID);
+                BrowserHistory.push("/chat/" + response.data.returnID);
             }
         });       
         }
@@ -60,7 +70,8 @@ var NewRoomForm = React.createClass({
                 that.setState({errorMessage: response.data.error});
             }
             else{
-                BrowserHistory.push("/chat/new/" + response.data.returnID);
+                console.log("returnID: " + response.data.returnID);
+                BrowserHistory.push("/chat/" + response.data.returnID);
             }
         });
         }
@@ -71,7 +82,6 @@ var NewRoomForm = React.createClass({
         this.setState(state);
     },
     togglePasswordField: function(){
-        console.log("toggling pw");
         let that = this;
         that.setState({passwordFieldVisible: document.getElementsByName('passwordProtected')[0].checked});
     }

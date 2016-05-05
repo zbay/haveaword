@@ -13,13 +13,7 @@ var BadLink = require("./components/StatelessContent/BadLink");
 
 var ChatWrapper = React.createClass({
     render: function(){
-        return (<ChatRoomWrapper roomID={this.props.routeParams.id} />);
-    }
-});
-var ChatNewWrapper = React.createClass({
-    render: function(){
-        return (<ChatRoomWrapper roomID={this.props.routeParams.id} topMessage="Welcome to your new chat room! Make sure to save the link, if you plan on using
-        this one again before it expires."/>);
+        return (<ChatRoomWrapper roomID={encodeURIComponent(this.props.routeParams.id)} />);
     }
 });
 
@@ -28,7 +22,6 @@ module.exports = (
     <Route path="/" component={Main}>
       <IndexRoute component={Home} />
       <Route path="chat/:id" component={ChatWrapper}/>
-      <Route path="chat/new/:id" component={ChatNewWrapper} />
       <Route path="*" status={404} component={BadLink}/>
     </Route>
   </Router>

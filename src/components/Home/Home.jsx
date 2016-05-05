@@ -8,6 +8,7 @@ var Home = React.createClass({
     render: function(){
         return (<div>
         <NewRoomForm createdRoom={this.redirect}/>
+        <br />
         </div>);
     },
     redirect: function(roomID){

@@ -1,9 +1,78 @@
-.blueText {
-  color: blue; }
+.yellowText {
+  color: yellow; }
 
 .redText {
   color: red; }
 
+.whiteText {
+  color: white; }
+
 .jumbotron {
   background-color: gray;
   font-family: "Verdana", "Arial", "Courier New"; }
+
+.jumbotron, footer {
+  text-align: center;
+  font-family: verdana;
+  background-color: #404040;
+  width: 100%;
+  background-size: cover; }
+
+footer {
+  color: white;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+select {
+  color: white;
+  background-color: #404040; }
+
+#formSuccess, #formError {
+  background-color: #404040;
+  font-family: "Verdana";
+  padding: 10px;
+  font-weight: bold;
+  margin-top: 10px;
+  border-radius: 10px;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; }
+
+#formSuccess {
+  color: white; }
+
+#formError {
+  color: red; }
+
+textarea {
+  min-width: 70%;
+  max-width: 98%; }
+
+td {
+  border: 1px groove yellow; }
+
+td, th {
+  padding: 5px;
+  min-width: 30%;
+  max-width: 50%; }
+
+th {
+  text-align: center;
+  font-size: 150%;
+  background-color: #404040;
+  color: white;
+  font-family: "Verdana";
+  border: 5px groove yellow; }
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 50%;
+  max-width: 85%; }
+
+#newRoomForm, #passwordForm, #chatRoom, #fourohfour {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; }

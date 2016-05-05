@@ -4,14 +4,23 @@ var Message = require("./Message");
 var MessageList = React.createClass({
     render: function(){
         let that = this;
-        return (<div id="messageList">
+        return (
+        <table id="messageList">
+        <tbody>
+        <tr>
+            <th>Time</th>
+            <th>Author</th>
+            <th>Message</th>
+        </tr>
         {that.renderMessages()}
-        </div>);
+        </tbody>
+        </table>
+        );
     },
     renderMessages: function(){
         let that = this;
-        console.log(that.props.messages);
          return (that.props.messages.map(function(message, index){
+             console.log("index: " + index);
             return (<Message key={index} text={message.text} author={message.author} timePosted={message.timePosted}/>);
         }));        
     }
