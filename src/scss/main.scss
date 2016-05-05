@@ -66,6 +66,8 @@ textarea{
 
 td{
     border: 1px groove yellow;
+    text-align:left;
+    padding-left:2%;
 }
 td, th{
     padding:5px;
@@ -86,6 +88,9 @@ table{
     max-width:85%;
 }
 
-#newRoomForm, #passwordForm, #chatRoom, #fourohfour{
+#newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder{
     @include fullCentered();
+}
+#haveawordLogo a{
+    all: unset;
 }

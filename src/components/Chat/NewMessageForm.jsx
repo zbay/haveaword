@@ -14,6 +14,9 @@ var NewMessageForm = React.createClass({
         <textarea rows="2" name="text" value={that.state.text} onChange={that.onChange}/>
         <br /><br />
         <button onClick={that.sendMessage} >Post</button>
+        <br /><br />
+        <div id="reminder">Remember to save this chat room's link. Note, also, that chat rooms do not officially expire on their expiration date; they 
+        may persist for up to 24 hours after the date passes.</div>
         </div>);
     },
     sendMessage: function(){

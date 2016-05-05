@@ -24,7 +24,12 @@ var ChatRoomWrapper = React.createClass({
         let that = this;
         axios.post("/checkPrivate", {"roomID": that.props.roomID}).then(function(response){
             if(!response.data.private){
-                that.setVisible();
+                if(response.data.exists){
+                 that.setVisible();   
+                }
+                else{
+                    BrowserHistory.push("/");
+                }
             }
         });
     },

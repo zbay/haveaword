@@ -13,14 +13,14 @@ var axios = require("axios");
 
 var ChatRoom = React.createClass({
     getInitialState: function(){
-      return {"name": "anonymous", "errorMessage": null, "messages": [], "expiration": Date.now()}  
+      return {"name": "anonymous", "errorMessage": null, "messages": [], "expiration": Date.now(), "isLoading": true}  
     },
     componentWillMount: function(){
       this.getRoomData();  
     },
     componentDidMount: function(){
         let that = this;
-          socket.emit("room", that.props.roomID);
+         socket.emit("room", that.props.roomID);
           socket.on("newMessage", function(message){
             var currentMessages = that.state.messages;
             currentMessages.push(message);
@@ -35,7 +35,7 @@ var ChatRoom = React.createClass({
         <h4>Expires: {expirationDate != "Invalid date" ? expirationDate : "never"}</h4>
         <FormAlert errorMessage={that.state.errorMessage} successMessage={that.props.successMessage}/>
         <br />
-        <MessageList roomID={that.state.roomID} messages={that.state.messages}/>
+        {that.state.isLoading ? (<img src="/img/loading_spinner.gif"/>) : (<MessageList roomID={that.state.roomID} messages={that.state.messages}/>)}
         <br />
         <NameForm setName={that.setName}/>
         <br />
@@ -61,7 +61,7 @@ var ChatRoom = React.createClass({
         let that = this;
         axios.post("/getRoomData", {roomID: that.props.roomID}).then(function(response){
             if(response.data.messages){
-                that.setState({"messages": response.data.messages, "expiration": response.data.expiration});
+                that.setState({"messages": response.data.messages, "expiration": response.data.expiration, "isLoading": false});
             }
             else{
                 that.setState({"errorMessage": response.data.error});

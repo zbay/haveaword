@@ -6,11 +6,17 @@ var sanitizeBody = require("./helpers/sanitizeBody");
 module.exports = function(app){
     app.post("/checkPrivate", sanitizeBody, function(req, res){
         Room.findOne({"name": req.body.roomID}, function(err, doc){
-            if(doc && doc.password && doc.password.length){
-                res.json({"private": true});
+            console.log("doccc: " + doc);
+            if(!doc){
+                res.json({"exists": false});
             }
             else{
-            res.json({"private": false});
+                if(doc.password && doc.password.length){
+                    res.json({"private": true, "exists": true});
+                }
+                else{
+                    res.json({"private": false, "exists": true});
+                }   
             }
         })
     });
