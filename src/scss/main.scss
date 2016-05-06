@@ -86,7 +86,7 @@ th{
     border: 5px groove yellow;
 }
 table{
-    @include marginCentered();
+    margin: 0 auto;
     min-width:70%;
     max-width:90%;
     overflow-x:scroll;
