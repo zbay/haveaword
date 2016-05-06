@@ -11,13 +11,13 @@ $standard_space: 10px;
 }
 
 .yellowText{
-    color:yellow;
+    color:yellow !important;
 }
 .redText{
-    color:red;
+    color:red !important;
 }
 .whiteText{
-    color:white;
+    color:white !important;
 }
 .jumbotron{
     background-color: gray;
@@ -84,8 +84,8 @@ th{
 }
 table{
     @include marginCentered();
-    min-width:50%;
-    max-width:85%;
+    min-width:70%;
+    max-width:90%;
 }
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about{
     @include fullCentered();
@@ -104,4 +104,8 @@ table{
 .img-responsive{
     margin-left:auto;
     margin-right:auto;
+}
+.table-responsive{
+    max-width:95%;
+    margin-top:5px;
 }

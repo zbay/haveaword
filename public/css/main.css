@@ -1,11 +1,11 @@
 .yellowText {
-  color: yellow; }
+  color: yellow !important; }
 
 .redText {
-  color: red; }
+  color: red !important; }
 
 .whiteText {
-  color: white; }
+  color: white !important; }
 
 .jumbotron {
   background-color: gray;
@@ -71,7 +71,7 @@ th {
 table {
   margin-left: auto;
   margin-right: auto;
-  min-width: 50%;
+  min-width: 70%;
   max-width: 85%; }
 
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about {
@@ -93,3 +93,7 @@ table {
 .img-responsive {
   margin-left: auto;
   margin-right: auto; }
+
+.table-responsive {
+  max-width: 95%;
+  margin-top: 5px; }
