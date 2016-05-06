@@ -18,6 +18,16 @@ module.exports = function(app){
         })
                 }
             }
+            else{
+                        Room.findOneAndUpdate({"name": req.body.roomID}, {$addToSet: {messages: {"text": req.body.text, "author": req.body.author}}}, function(err, doc){
+                            if(doc && !err){
+                                res.json({"message": {"text": req.body.text, "author": req.body.author, "timePosted": Date.now()}});
+                            }
+                            else{
+                                res.json({"error": err});
+                            }
+        })
+            }
         });
 
     });
