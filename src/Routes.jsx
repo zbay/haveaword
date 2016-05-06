@@ -10,6 +10,7 @@ var Main = require("./components/Main");
 var ChatRoomWrapper = require("./components/Chat/ChatRoomWrapper");
 var Home = require("./components/Home/Home");
 var BadLink = require("./components/StatelessContent/BadLink");
+var About = require("./components/StatelessContent/About");
 
 var ChatWrapper = React.createClass({
     render: function(){
@@ -21,6 +22,7 @@ module.exports = (
   <Router history={BrowserHistory}>
     <Route path="/" component={Main}>
       <IndexRoute component={Home} />
+      <Route path="about" component={About} />
       <Route path="chat/:id" component={ChatWrapper}/>
       <Route path="*" status={404} component={BadLink}/>
     </Route>

@@ -7,7 +7,7 @@ module.exports = React.createClass({
         return (<div className="container">
         <div id="fourohfour" className="row">
         <div className="col-sm-12 redText">
-        Error 404: File not found! <Link to="https://haveaword-zbay.c9users.io/">Click here for the home page</Link>.
+        Error 404: File not found! <Link to="/">Click here for the home page</Link>.
         </div></div><br/></div>);
     }
 });

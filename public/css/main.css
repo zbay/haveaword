@@ -51,7 +51,7 @@ textarea {
   max-width: 98%; }
 
 td {
-  border: 1px groove yellow;
+  border: 3px solid black;
   text-align: left;
   padding-left: 2%; }
 
@@ -74,10 +74,22 @@ table {
   min-width: 50%;
   max-width: 85%; }
 
-#newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder {
+#newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about {
   margin-left: auto;
   margin-right: auto;
   text-align: center; }
 
+#about img {
+  border: 3px solid red; }
+
 #haveawordLogo a {
   all: unset; }
+
+.aboutCaption {
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.img-responsive {
+  margin-left: auto;
+  margin-right: auto; }

@@ -18,8 +18,8 @@ var NewRoomForm = React.createClass({
     },
     render: function(){
         return (<form onSubmit={this.makeRoom} id="newRoomForm">
+            <div><Link to="/about">What is this?</Link></div>
             <FormAlert errorMessage={this.state.errorMessage}/>
-            <br />
             <label>Make a new chatroom: </label> 
             <br />
             <input placeholder="A unique name" name="roomName" value={this.state.roomName} onChange={this.onChange}/>

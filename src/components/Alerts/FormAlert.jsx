@@ -9,6 +9,7 @@ module.exports = React.createClass({
         (<a href={this.props.newPostURL} target="_blank">View it now.</a>):
         (<span></span>)}</div>): (<span></span>)}
         {this.props.errorMessage ? ( <div id="formError">{this.props.errorMessage}</div>): (<span></span>)}
+        <br />
         </div>);
     }
 });
