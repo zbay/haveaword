@@ -40,7 +40,6 @@ var ChatRoom = React.createClass({
             (<button onClick={that.showAll}>Show All Messages (Instead of {recentQuantity} most recent)</button>): 
             (<span></span>))}
         <FormAlert errorMessage={that.state.errorMessage} successMessage={that.props.successMessage}/>
-        <br />
         {that.state.isLoading ? (<img src="/img/loading_spinner.gif"/>) : (<MessageList roomID={that.state.roomID} messages={that.state.messages}/>)}
         <br />
         <NameForm setName={that.setName}/>
