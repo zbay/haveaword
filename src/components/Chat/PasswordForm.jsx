@@ -28,6 +28,7 @@ var PasswordForm = React.createClass({
         axios.post("/login", {roomID: that.props.roomID, password: that.state.password}).then(function(response){
             if(response.data.success){
                 that.props.setVisible();
+                that.props.setPassword(that.state.password);
             }
             else{
                 that.setState({"errorMessage": response.data.error});

@@ -6,7 +6,6 @@ var sanitizeBody = require("./helpers/sanitizeBody");
 module.exports = function(app){
     app.post("/checkPrivate", sanitizeBody, function(req, res){
         Room.findOne({"name": req.body.roomID}, function(err, doc){
-            console.log("doccc: " + doc);
             if(!doc){
                 res.json({"exists": false});
             }

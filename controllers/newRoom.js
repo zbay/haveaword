@@ -4,7 +4,7 @@ var Room = require(process.cwd() + "/dbmodels/room.js"); Room = mongoose.model("
 var sanitizeBody = require("./helpers/sanitizeBody");
 var dayMilliseconds = (24*60*60*1000);
 var weekMilliseconds = dayMilliseconds * 7;
-var monthMilliseconds = weekMilliseconds * 31;
+var monthMilliseconds = dayMilliseconds * 31;
 
 module.exports = function(app) {
     app.post("/newRoom", sanitizeBody, function(req, res){

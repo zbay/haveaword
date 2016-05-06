@@ -7,16 +7,19 @@ var FormAlert = require("../Alerts/FormAlert");
 var io = require("socket.io-client");
 var socket = io();
 var moment = require('moment');
+var recentQuantity = 50;
 
 var Link = ReactRouter.Link;
 var axios = require("axios");
 
 var ChatRoom = React.createClass({
     getInitialState: function(){
-      return {"name": "anonymous", "errorMessage": null, "messages": [], "expiration": Date.now(), "isLoading": true}  
+      return {"name": "anonymous", "errorMessage": null, "messages": [], "expiration": Date.now(), "isLoading": true,
+          "showAll": false, "allMessages": [], "origLength": 0
+      }  
     },
     componentWillMount: function(){
-      this.getRoomData();  
+      this.getData();  
     },
     componentDidMount: function(){
         let that = this;
@@ -33,6 +36,9 @@ var ChatRoom = React.createClass({
         return (<div id="chatRoom">
         <h3>Chat Room: {that.props.roomID}</h3>
         <h4>Expires: {expirationDate != "Invalid date" ? expirationDate : "never"}</h4>
+        {(that.state.origLength > recentQuantity && !that.state.showAll ? 
+            (<button onClick={that.showAll}>Show All Messages (Instead of {recentQuantity} most recent)</button>): 
+            (<span></span>))}
         <FormAlert errorMessage={that.state.errorMessage} successMessage={that.props.successMessage}/>
         <br />
         {that.state.isLoading ? (<img src="/img/loading_spinner.gif"/>) : (<MessageList roomID={that.state.roomID} messages={that.state.messages}/>)}
@@ -45,7 +51,7 @@ var ChatRoom = React.createClass({
     },
     postMessage: function(text){
         let that = this;
-        axios.post("/postMessage", {roomID: that.props.roomID, text: text, author: that.state.name}).then(function(response){
+        axios.post("/postMessage", {roomID: that.props.roomID, text: text, author: that.state.name, password: that.props.password}).then(function(response){
             if(response.data.error){
                 that.setState({errorMessage: response.data.error});
             }
@@ -57,16 +63,21 @@ var ChatRoom = React.createClass({
     setName: function(name){
         this.setState({"name": name});
     },
-    getRoomData: function(){
+    getData: function(){
         let that = this;
-        axios.post("/getRoomData", {roomID: that.props.roomID}).then(function(response){
+        axios.post("/getAllMessages", {roomID: that.props.roomID}).then(function(response){
             if(response.data.messages){
-                that.setState({"messages": response.data.messages, "expiration": response.data.expiration, "isLoading": false});
+                that.setState({"allMessages": response.data.messages, "expiration": response.data.expiration, "isLoading": false,
+                    "origLength": response.data.messages.length, "messages": response.data.messages.slice(-1 * recentQuantity)
+                });
             }
             else{
                 that.setState({"errorMessage": response.data.error});
             }
         });
+    },
+    showAll: function(){
+        this.setState({"showAll": true, "messages": this.state.allMessages});
     }
 });
 

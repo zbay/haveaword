@@ -17,7 +17,8 @@ var ChatRoomWrapper = React.createClass({
         let that = this;
         let canView = that.state.canView;
         return (<div>
-        {canView ? <ChatRoom roomID={that.props.roomID}/>: <PasswordForm roomID={that.props.roomID} setVisible={that.setVisible}/>}
+        {canView ? <ChatRoom roomID={that.props.roomID} password={that.state.password}/>: <PasswordForm roomID={that.props.roomID} setVisible={that.setVisible} 
+        setPassword={that.setPassword}/>}
         </div>);
     },
     checkPrivate: function(){
@@ -35,6 +36,9 @@ var ChatRoomWrapper = React.createClass({
     },
     setVisible: function(){
        this.setState({"canView": true});
+    },
+    setPassword: function(password){ //I require the password to add a message to a password-protected page, so post requests can't be spoofed to write to one
+        this.setState({"password": password});
     }
 });
 
