@@ -51,7 +51,8 @@ select {
 
 textarea {
   min-width: 70%;
-  max-width: 98%; }
+  max-width: 98%;
+  resize: both; }
 
 td {
   border: 3px solid black;
@@ -75,7 +76,10 @@ table {
   margin-left: auto;
   margin-right: auto;
   min-width: 70%;
-  max-width: 90%; }
+  max-width: 90%;
+  overflow-x: scroll; }
+  table img {
+    max-width: 100%; }
 
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about {
   margin-left: auto;
@@ -93,7 +97,3 @@ table {
 .img-responsive {
   margin-left: auto;
   margin-right: auto; }
-
-.table-responsive {
-  max-width: 95%;
-  margin-top: 5px; }

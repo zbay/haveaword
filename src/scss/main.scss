@@ -89,6 +89,10 @@ table{
     @include marginCentered();
     min-width:70%;
     max-width:90%;
+    overflow-x:scroll;
+    img{
+        max-width:100%;
+    }
 }
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about{
     @include fullCentered();
@@ -104,8 +108,4 @@ table{
 .img-responsive{
     margin-left:auto;
     margin-right:auto;
-}
-.table-responsive{
-    max-width:95%;
-    margin-top:5px;
 }
