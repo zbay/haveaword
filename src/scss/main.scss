@@ -9,7 +9,9 @@ $standard_space: 10px;
     @include marginCentered();
     text-align:center;
 }
-
+#haveawordLogo a{
+    color: red;
+}
 .yellowText{
     color:yellow !important;
 }
@@ -62,6 +64,7 @@ select{
 textarea{
     min-width:70%;
     max-width:98%;
+    resize:both;
 }
 
 td{
@@ -92,9 +95,6 @@ table{
 }
 #about img{
     border: 3px solid red;
-}
-#haveawordLogo a{
-    all: unset;
 }
 .aboutCaption{
     font-weight:bold;

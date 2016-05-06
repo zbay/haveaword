@@ -1,3 +1,6 @@
+#haveawordLogo a {
+  color: red; }
+
 .yellowText {
   color: yellow !important; }
 
@@ -72,7 +75,7 @@ table {
   margin-left: auto;
   margin-right: auto;
   min-width: 70%;
-  max-width: 85%; }
+  max-width: 90%; }
 
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about {
   margin-left: auto;
@@ -81,9 +84,6 @@ table {
 
 #about img {
   border: 3px solid red; }
-
-#haveawordLogo a {
-  all: unset; }
 
 .aboutCaption {
   font-weight: bold;
