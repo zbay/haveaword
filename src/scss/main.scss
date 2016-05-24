@@ -25,18 +25,35 @@ $standard_space: 10px;
     background-color: gray;
     font-family: "Verdana", "Arial", "Courier New";
 }
-.jumbotron, footer{
+.jumbotron, #footer{
     text-align:center;
     font-family: verdana;
     background-color: $header_footer_background;
     width: 100%;
     background-size:cover;
 }
-footer{
+#main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color:white;
+    font-size:150%;
     margin-top: $standard_space;
     padding-top: $standard_space;
     padding-bottom: $standard_space;
+    flex: 1;
+    align-self:center;
+}
+.VertCenterTop{
+  align-self: flex-start;
+}
+.VertCenterBottom{
+  align-self: flex-end;
 }
 
 select{
@@ -71,6 +88,7 @@ td{
     border: 3px solid black;
     text-align:left;
     padding-left:2%;
+    background-color: #e6e6e6;
 }
 td, th{
     padding:5px;
@@ -83,7 +101,9 @@ th{
     background-color:#404040;
     color:white;
     font-family:"Verdana";
-    border: 5px groove yellow;
+    border-top: 5px solid yellow;
+    border-right: 5px solid yellow;
+    border-left: 5px solid yellow;
 }
 table{
     margin: 0 auto;
@@ -97,8 +117,11 @@ table{
 #newRoomForm, #passwordForm, #chatRoom, #fourohfour, #reminder, #about{
     @include fullCentered();
 }
-#about img{
-    border: 3px solid red;
+#about{
+    padding-top:0;
+    img{
+       border: 3px solid red; 
+    }
 }
 .aboutCaption{
     font-weight:bold;

@@ -14,18 +14,35 @@
   background-color: gray;
   font-family: "Verdana", "Arial", "Courier New"; }
 
-.jumbotron, footer {
+.jumbotron, #footer {
   text-align: center;
   font-family: verdana;
   background-color: #404040;
   width: 100%;
   background-size: cover; }
 
-footer {
+#main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
+  font-size: 150%;
   margin-top: 10px;
   padding-top: 10px;
-  padding-bottom: 10px; }
+  padding-bottom: 10px;
+  flex: 1;
+  align-self: center; }
+
+.VertCenterTop {
+  align-self: flex-start; }
+
+.VertCenterBottom {
+  align-self: flex-end; }
 
 select {
   color: white;
@@ -57,7 +74,8 @@ textarea {
 td {
   border: 3px solid black;
   text-align: left;
-  padding-left: 2%; }
+  padding-left: 2%;
+  background-color: #e6e6e6; }
 
 td, th {
   padding: 5px;
@@ -70,11 +88,12 @@ th {
   background-color: #404040;
   color: white;
   font-family: "Verdana";
-  border: 5px groove yellow; }
+  border-top: 5px solid yellow;
+  border-right: 5px solid yellow;
+  border-left: 5px solid yellow; }
 
 table {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   min-width: 70%;
   max-width: 90%;
   overflow-x: scroll; }
@@ -86,8 +105,10 @@ table {
   margin-right: auto;
   text-align: center; }
 
-#about img {
-  border: 3px solid red; }
+#about {
+  padding-top: 0; }
+  #about img {
+    border: 3px solid red; }
 
 .aboutCaption {
   font-weight: bold;

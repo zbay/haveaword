@@ -9,6 +9,7 @@ module.exports = React.createClass({
         <p>Do you want to talk with somebody, immediately, in your very own chat room at a custom URL?
         Do you want your conversation to be (optionally) password protected, and to (also optionally) self-destruct
         within 48 hours? Then Have-A-Word is for you. <Link to="/">Let's get started!</Link></p>
+        <br />
         <img src="../img/login.png" className="img-responsive"/>
         <div className="aboutCaption">Sample login</div>
         <img src="../img/chatExample.png" className="img-responsive"/>

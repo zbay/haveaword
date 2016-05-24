@@ -7,7 +7,7 @@ var actions = require("../actions");
 
 var Main = React.createClass({
     render: function(){
-        return (<div>
+        return (<div id="main">
         <Jumbotron />
        {this.props.children}
        <Footer />
