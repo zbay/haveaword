@@ -2,10 +2,10 @@
 "use strict";
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
-var Room = require(process.cwd() + "/dbmodels/posting.js"); Room = mongoose.model("Room");
+var Room = require(process.cwd() + "/dbmodels/room.js"); Room = mongoose.model("Room");
 var dailySeconds = 86400;
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/opine', function (err, db)
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/haveaword', function (err, db)
 {
  if (err) {
       throw new Error('Database failed to connect!');
@@ -17,7 +17,9 @@ var iterated = 0;
 
 Room.find({}, function(error, docs){
     if(docs && !err){
+    console.log("docs: " + docs);
     for(let i = 0; i < docs.length; i++){
+        console.log("doc: " + docs[i]);
      let then = (new Date(docs[i].expiration).getTime())/1000;
      if((now - then) > dailySeconds){
         Room.remove({_id: ObjectId(docs[i]._id)}, function(err, msg){
