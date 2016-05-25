@@ -19,14 +19,17 @@ Room.find({}, function(error, docs){
     if(docs && !err){
     console.log("docs: " + docs);
     for(let i = 0; i < docs.length; i++){
-        console.log("doc: " + docs[i]);
      let then = (new Date(docs[i].expiration).getTime())/1000;
      if((now - then) > dailySeconds){
+        console.log("should delete: " + docs[i]._id);
         Room.remove({_id: ObjectId(docs[i]._id)}, function(err, msg){
             console.log("err: " + err);
             console.log("msg: " + msg);
             iterated++;
             });
+        }
+        else{
+            iterated++;
         }
       if(iterated == docs.length-1){
           process.exit();
