@@ -32,7 +32,6 @@ module.exports = function(app) {
                     password: bcrypt.hashSync(req.body.password.trim().substr(0, 200), 10)});   
                     newRoom.save(function(err, msg){
                         if(msg && !err){
-                            console.log("safeName: " + urlSafeName);
                             res.json({"returnID": urlSafeName});
                         }
                         else{
@@ -45,7 +44,6 @@ module.exports = function(app) {
                         newRoom = new Room({"name": urlSafeName, expiration: expires});
                         newRoom.save(function(err, msg){
                         if(msg && !err){
-                            console.log("safeName: " + urlSafeName);
                             res.json({"returnID": urlSafeName});
                         }
                         else{
