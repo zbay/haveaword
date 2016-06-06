@@ -8,7 +8,14 @@ var reactify = require('reactify');
 var exec = require('child_process').exec;
 var babelify = require('babelify');
 
+gulp.task('styles', function() {
+    gulp.src('./src/scss/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./public/css/'));
+});
+  
 gulp.task('default', function() {
+  
   var bundler = watchify(browserify({
     entries: ['./src/App.jsx'],
     extensions: ['.jsx', '.scss'],
@@ -18,9 +25,11 @@ gulp.task('default', function() {
     fullPaths: true
   }));
   
-gulp.src('src/scss/*.scss')
+  gulp.src('src/scss/*.scss')
   .pipe(sass().on('error', sass.logError))
   .pipe(gulp.dest('./public/css/'));
+
+gulp.watch('./src/scss/*.scss', ['styles']);
 
   function build(file) {
     if (file) gutil.log('Recompiling ' + file);
